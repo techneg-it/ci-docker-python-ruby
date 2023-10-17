@@ -27,12 +27,12 @@ echo \
 apt-get update
 
 if [[ "$DOCKER_VERSION" == "latest" ]]; then
-  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+  DEBIAN_FRONTEND=noninteractive apt-get install -y \
     docker-ce docker-ce-cli containerd.io
 else
   INSTALL_VERSION=$(apt-cache madison docker-ce | grep "$DOCKER_VERSION" | head -1 | cut -d '|' -f2 | tr -d '[:space:]')
   if [[ -n "$INSTALL_VERSION" ]]; then
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
       docker-ce="$INSTALL_VERSION" \
       docker-ce-cli="$INSTALL_VERSION" \
       containerd.io
@@ -41,6 +41,3 @@ else
       exit 1
   fi
 fi
-
-curl -L "https://github.com/docker/compose/releases/download/""$DOCKER_COMPOSE_VERSION""/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
