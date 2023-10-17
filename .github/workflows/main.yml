@@ -1,0 +1,54 @@
+name: Build images
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pre-commit:
+    name: Run `pre-commit`
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v4
+    - uses: pre-commit/action@v3.0.0
+  sem-rel:
+    name: Run `semantic-release`
+    runs-on: ubuntu-latest
+    outputs:
+      new-release-published: ${{ steps.sem-rel.outputs.new-release-published }}
+      release-version: ${{ steps.sem-rel.outputs.release-version }}
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: codfish/semantic-release-action@v2
+        id: sem-rel
+        with:
+          branches: |
+            ["main"]
+          plugins: |
+            [ "@semantic-release/commit-analyzer",
+              "@semantic-release/release-notes-generator",
+              "@semantic-release/github"
+            ]
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  build-images:
+    uses: dafyddj/workflow-docker-build/.github/workflows/build.yml@v1
+    needs:
+      - pre-commit
+      - sem-rel
+    permissions:
+      packages: write
+    secrets:
+      github-token: ${{ secrets.GITHUB_TOKEN }}
+      registry-password: ${{ secrets.GITHUB_TOKEN }}
+    with:
+      release:  ${{ needs.sem-rel.outputs.new-release-published == 'true' }}
+      tag: ${{ needs.sem-rel.outputs.release-version }}
