@@ -48,7 +48,8 @@ jobs:
       packages: write
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
-      registry-password: ${{ secrets.GITHUB_TOKEN }}
+      registry-password: ${{ secrets.DOCKERHUB_TOKEN }}
     with:
+      docker-registry: docker.io
       release:  ${{ needs.sem-rel.outputs.new-release-published == 'true' }}
       tag: ${{ needs.sem-rel.outputs.release-version }}
