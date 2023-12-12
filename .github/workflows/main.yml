@@ -27,20 +27,19 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - uses: codfish/semantic-release-action@v2
+      - uses: codfish/semantic-release-action@v3
+        # First run `semantic-release` to analyze whether a release is required
         id: sem-rel
         with:
           branches: |
             ["main"]
           plugins: |
-            [ "@semantic-release/commit-analyzer",
-              "@semantic-release/release-notes-generator",
-              "@semantic-release/github"
-            ]
+            [ "@semantic-release/commit-analyzer" ]
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   build-images:
-    uses: dafyddj/workflow-docker-build/.github/workflows/build.yml@v1
+    name: Run workflow
+    uses: dafyddj/workflow-docker-build/.github/workflows/build.yml@v2
     needs:
       - pre-commit
       - sem-rel
@@ -53,3 +52,28 @@ jobs:
       docker-registry: docker.io
       release:  ${{ needs.sem-rel.outputs.new-release-published == 'true' }}
       tag: ${{ needs.sem-rel.outputs.release-version }}
+  results:
+    name: Collect results
+    needs:
+      - build-images
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: codfish/semantic-release-action@v3
+        with:
+          branches: |
+            ["main"]
+          plugins: |
+            [ "@semantic-release/commit-analyzer",
+              "@semantic-release/release-notes-generator",
+              "@semantic-release/github"
+            ]
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update Healthchecks.io
+        if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+        run: curl -fsS -m 10 --retry 5 -o /dev/null https://hc-ping.com/${HC_UUID}
+        env:
+          HC_UUID: ${{ secrets.HC_UUID }}
