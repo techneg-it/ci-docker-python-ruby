@@ -1,0 +1,19 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "enabledManagers": [
+    "dockerfile",
+  ],
+  "extends": [
+    "config:recommended",
+    "docker:pinDigests",
+    ":semanticCommitTypeAll(fix)",
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["python"],
+      "matchUpdateTypes": ["major", "minor"],
+      "enabled": false,
+    }
+  ]
+}
