@@ -6,7 +6,7 @@ provisioner:
   name: dummy
 
 verifier:
-  name: shell
+  name: inspec
 
 platforms:
   - name: test
