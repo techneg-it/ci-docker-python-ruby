@@ -31,8 +31,7 @@ jobs:
         # First run `semantic-release` to analyze whether a release is required
         id: sem-rel
         with:
-          branches: |
-            ["main"]
+          dry-run: true
           plugins: |
             [ "@semantic-release/commit-analyzer" ]
         env:
@@ -63,8 +62,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: codfish/semantic-release-action@v3
         with:
-          branches: |
-            ["main"]
           plugins: |
             [ "@semantic-release/commit-analyzer",
               "@semantic-release/release-notes-generator",
