@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-FROM dafyddj/ci-pre-commit:2.1.10@sha256:1f953cbd896f275ed4c52500f1e96f44e4b8850dfce35ce4b112b5d639206f8f
+FROM dafyddj/ci-pre-commit:2.1.11@sha256:4986f953b6e731eb22fbe5a41fe4b6049f2ce87a39d945582f9d379baed0c795
 
 LABEL authors="Dafydd Jones <dafydd@techneg.it>"
 
