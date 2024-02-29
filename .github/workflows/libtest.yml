@@ -1,0 +1,68 @@
+name: Build & test image
+
+on:
+  workflow_call:
+    inputs:
+      image-namespace:
+        required: true
+        type: string
+      image-repo:
+        required: true
+        type: string
+      release:
+        type: boolean
+        default: true
+    secrets:
+      push-token:
+        # See https://docs.github.com/en/actions/using-workflows/triggering-a-workflow
+        description: To trigger the `publish` workflow use a GitHub App installation access token
+                     or a personal access token
+        required: true
+
+jobs:
+  build:
+    name: Build & test image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          persist-credentials: false    # Prevent credentials conflict when running `semantic-release`
+      - name: Debug on runner (When re-run with "Enable debug logging" checked)
+        if: runner.debug
+        uses: mxschmitt/action-tmate@a283f9441d2d96eb62436dc46d7014f5d357ac22 # v3.17
+        with:
+          detached: true
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@0d103c3126aa41d772a8362f6aa67afac040f80c # v3.1.0
+      - name: Build and export locally to Docker
+        uses: docker/build-push-action@4a13e500e55cf31b7a5d59a38ab2040ab0f42f56 # v5.1.0
+        with:
+          context: .
+          load: true
+          tags: ${{ inputs.image-namespace }}/${{ inputs.image-repo }}:local-test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      - name: Install Test Kitchen
+        uses: actionshub/chef-install@d41f8dde8642d5cd05abefa333fbf2784cff830c # 3.0.0
+        with:
+          project: chef-workstation
+          version: 23.12.1055
+      - name: Prepare Test Kitchen
+        env:
+          CHEF_LICENSE: accept-silent
+        run: chef gem install kitchen-docker
+      - name: Run Test Kitchen
+        run: kitchen test
+      - name: Run `semantic-release`
+        uses: codfish/semantic-release-action@07170c8b1613177f0f3aa4d2224e2e0933cd732c # v3.1.0
+        id: sem-rel
+        with:
+          dry-run: ${{ !inputs.release }}
+          plugins: |
+            [ "@semantic-release/commit-analyzer",
+              "@semantic-release/release-notes-generator",
+              "@semantic-release/github"
+            ]
+        env:
+          GITHUB_TOKEN: ${{ secrets.push-token }}
