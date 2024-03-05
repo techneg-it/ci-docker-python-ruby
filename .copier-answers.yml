@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: v1.5.0
+_commit: v1.5.0 # __copier_update_needed v1.6.0
 _src_path: gh:dafyddj/copier-docker-build
 container_registry: docker.io
 image_namespace: dafyddj
