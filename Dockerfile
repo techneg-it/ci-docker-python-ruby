@@ -23,8 +23,6 @@
 
 FROM dafyddj/ci-pre-commit:v2.1.13@sha256:7f7f16f291bc64fe5336e91cee25f94150fde40aad3f8d9f36a072a21cb55a7d
 
-LABEL authors="Dafydd Jones <dafydd@techneg.it>"
-
 # add more arguments from CI to the image so that `$ env` should reveal more info
 ARG CI_BUILD_ID
 ARG CI_BUILD_REF
