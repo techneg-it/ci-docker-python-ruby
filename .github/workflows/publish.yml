@@ -13,7 +13,7 @@ jobs:
       docker-registry: docker.io
       image-namespace: dafyddj
       image-repo: ci-docker-python-ruby
-      labels: org.opencontainers.image.authors=AN Author <author@example.org>
+      labels: org.opencontainers.image.authors=SaltStack Formulas <GitHub @saltstack-formulas>
     secrets:
       registry-password: ${{ secrets.REGISTRY_TOKEN }}
       registry-username: ${{ secrets.REGISTRY_USERNAME }}
