@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: v1.6.1
+_commit: v1.6.2
 _src_path: gh:dafyddj/copier-docker-build
 container_registry: docker.io
 image_authors: SaltStack Formulas <GitHub @saltstack-formulas>
