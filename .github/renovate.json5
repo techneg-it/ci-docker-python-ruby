@@ -8,7 +8,6 @@
   "extends": [
     "config:recommended",
     "docker:pinDigests",
-    ":semanticCommitTypeAll(fix)",
   ],
   // `copier` template updates
   // There are two conditions that we need to account for
