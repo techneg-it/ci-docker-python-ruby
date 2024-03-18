@@ -34,9 +34,9 @@ jobs:
         with:
           detached: true
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@0d103c3126aa41d772a8362f6aa67afac040f80c # v3.1.0
+        uses: docker/setup-buildx-action@2b51285047da1547ffb1b2203d8be4c0af6b1f20 # v3.2.0
       - name: Build and export locally to Docker
-        uses: docker/build-push-action@af5a7ed5ba88268d5278f7203fb52cd833f66d6e # v5.2.0
+        uses: docker/build-push-action@2cdde995de11925a030ce8070c3d77a52ffcf1c0 # v5.3.0
         with:
           context: .
           load: true
@@ -45,13 +45,18 @@ jobs:
           cache-to: type=gha,mode=max
       - name: Install Test Kitchen
         uses: actionshub/chef-install@d41f8dde8642d5cd05abefa333fbf2784cff830c # 3.0.0
+        env:
+          # renovate: datasource=github-tags depName=chef/chef-workstation
+          CHEF_WS_VERSION: 24.2.1058
         with:
           project: chef-workstation
-          version: 23.12.1055
+          version: ${{ env.CHEF_WS_VERSION }}
       - name: Prepare Test Kitchen
         env:
           CHEF_LICENSE: accept-silent
-        run: chef gem install kitchen-docker
+          # renovate: datasource=rubygems depName=kitchen-docker
+          KITCHEN-DOCKER_VERSION: 3.0.0
+        run: chef gem install kitchen-docker --version ${{ env.KITCHEN-DOCKER_VERSION }}
       - name: Run Test Kitchen
         run: kitchen test
       - name: Run `semantic-release`
