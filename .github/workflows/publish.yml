@@ -11,7 +11,7 @@ jobs:
     uses: ./.github/workflows/libpublish.yml
     with:
       docker-registry: docker.io
-      image-namespace: dafyddj
+      image-namespace: techneg
       image-repo: ci-docker-python-ruby
       labels: org.opencontainers.image.authors=SaltStack Formulas <GitHub @saltstack-formulas>
     secrets:
