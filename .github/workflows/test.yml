@@ -28,7 +28,7 @@ jobs:
     permissions:
       contents: write
     with:
-      image-namespace: dafyddj
+      image-namespace: techneg
       image-repo: ci-docker-python-ruby
     secrets:
       push-token: ${{ secrets.PUSH_TOKEN }}

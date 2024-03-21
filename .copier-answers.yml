@@ -3,5 +3,5 @@ _commit: v1.6.4
 _src_path: gh:dafyddj/copier-docker-build
 container_registry: docker.io
 image_authors: SaltStack Formulas <GitHub @saltstack-formulas>
-image_namespace: dafyddj
+image_namespace: techneg
 image_repo: ci-docker-python-ruby

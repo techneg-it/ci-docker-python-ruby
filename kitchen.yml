@@ -11,7 +11,7 @@ verifier:
 platforms:
   - name: test
     driver:
-      image: dafyddj/ci-docker-python-ruby:local-test
+      image: techneg/ci-docker-python-ruby:local-test
       platform: debian
 
 suites:
