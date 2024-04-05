@@ -32,7 +32,7 @@
   },
   "packageRules": [
     {
-      "matchPackageNames": ["dafyddj/ci-pre-commit"],
+      "matchPackagePatterns": ["/ci-pre-commit$"],
       "automerge": true,
     }
   ],
