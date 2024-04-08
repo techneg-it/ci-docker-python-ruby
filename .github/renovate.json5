@@ -33,6 +33,10 @@
   "packageRules": [
     {
       "matchPackagePatterns": ["/ci-pre-commit$"],
+      "extends": [
+        ":semanticCommitScopeDisabled",
+        ":semanticPrefixFix",
+      ],
       "automerge": true,
     }
   ],
