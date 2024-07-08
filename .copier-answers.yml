@@ -1,7 +1,8 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: v1.6.10 # __copier_update_available v1.7.2
+_commit: v1.7.2
 _src_path: gh:dafyddj/copier-docker-build
 container_registry: docker.io
 image_authors: SaltStack Formulas <GitHub @saltstack-formulas>
 image_namespace: techneg
 image_repo: ci-docker-python-ruby
+release_is_scheduled: false
