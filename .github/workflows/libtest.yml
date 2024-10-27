@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false    # Prevent credentials conflict when running `semantic-release`
       - name: Debug on runner (When re-run with "Enable debug logging" checked)
@@ -34,9 +34,9 @@ jobs:
         with:
           detached: true
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@988b5a0280414f521da01fcc63a27aeeb4b104db # v3.6.1
+        uses: docker/setup-buildx-action@c47758b77c9736f4b2ef4073d4d51994fabfe349 # v3.7.1
       - name: Build and export locally to Docker
-        uses: docker/build-push-action@5cd11c3a4ced054e52742c5fd54dca954e0edd85 # v6.7.0
+        uses: docker/build-push-action@4f58ea79222b3b9dc2c8bbdd6debcef730109a75 # v6.9.0
         with:
           context: .
           load: true
@@ -46,7 +46,7 @@ jobs:
       - name: Install Test Kitchen
         uses: actionshub/chef-install@d41f8dde8642d5cd05abefa333fbf2784cff830c # 3.0.0
         env:
-          # renovate: datasource=github-tags depName=chef/chef-workstation
+          # renovate: datasource=custom.omnitruck depName=chef-workstation
           CHEF_WS_VERSION: 24.8.1068
         with:
           project: chef-workstation
