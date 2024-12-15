@@ -21,7 +21,7 @@ jobs:
     name: Report success
     needs:
       - run-publish-workflow
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Update Healthchecks.io
         run: |

@@ -30,6 +30,7 @@ repos:
       - id: rubocop
         name: Check Ruby files with rubocop
         args: [--debug]
+<<<<<<< before updating
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.9.0.6
     hooks:
@@ -37,3 +38,6 @@ repos:
         name: Check shell scripts with shellcheck
         files: ^.*\.(sh|bash|ksh)$
         types: []
+=======
+        language_version: system
+>>>>>>> after updating
