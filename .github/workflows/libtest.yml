@@ -9,6 +9,9 @@ on:
       image-repo:
         required: true
         type: string
+      no-cache-filter:
+        required: false
+        type: string
       release:
         type: boolean
         default: true
@@ -36,13 +39,14 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@6524bf65af31da8d45b59e8c27de4bd072b392f5 # v3.8.0
       - name: Build and export locally to Docker
-        uses: docker/build-push-action@48aba3b46d1b1fec4febb7c5d0c644b249a11355 # v6.10.0
+        uses: docker/build-push-action@b32b51a8eda65d6793cd0494a773d4f6bcef32dc # v6.11.0
         with:
           context: .
           load: true
           tags: ${{ inputs.image-namespace }}/${{ inputs.image-repo }}:local-test
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          no-cache-filters: ${{ inputs.no-cache-filter }}
       - name: Install Test Kitchen
         uses: actionshub/chef-install@d41f8dde8642d5cd05abefa333fbf2784cff830c # 3.0.0
         env:
