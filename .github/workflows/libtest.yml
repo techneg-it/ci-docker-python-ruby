@@ -37,9 +37,9 @@ jobs:
         with:
           detached: true
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@6524bf65af31da8d45b59e8c27de4bd072b392f5 # v3.8.0
+        uses: docker/setup-buildx-action@f7ce87c1d6bead3e36075b2ce75da1f6cc28aaca # v3.9.0
       - name: Build and export locally to Docker
-        uses: docker/build-push-action@b32b51a8eda65d6793cd0494a773d4f6bcef32dc # v6.11.0
+        uses: docker/build-push-action@ca877d9245402d1537745e0e356eab47c3520991 # v6.13.0
         with:
           context: .
           load: true
@@ -51,7 +51,7 @@ jobs:
         uses: actionshub/chef-install@d41f8dde8642d5cd05abefa333fbf2784cff830c # 3.0.0
         env:
           # renovate: datasource=custom.omnitruck depName=chef-workstation
-          CHEF_WS_VERSION: 24.12.1073
+          CHEF_WS_VERSION: 25.2.1075
         with:
           project: chef-workstation
           version: ${{ env.CHEF_WS_VERSION }}
