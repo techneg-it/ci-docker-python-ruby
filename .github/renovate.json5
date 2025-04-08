@@ -19,7 +19,7 @@
       ],
       automerge: true,
       matchPackageNames: [
-        '//ci-pre-commit$/',
+        '/\/ci-pre-commit$/',
       ],
     },
     {
