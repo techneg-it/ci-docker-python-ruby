@@ -1,15 +1,4 @@
 {
-<<<<<<< before updating
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "enabledManagers": [
-    "copier",
-    "dockerfile",
-    "git-submodules",
-  ],
-  "extends": [
-    "config:recommended",
-    "docker:pinDigests",
-=======
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   enabledManagers: [
     'copier',
@@ -17,31 +6,27 @@
   ],
   extends: [
     'config:recommended',
-  ],
->>>>>>> after updating
+    'docker:pinDigests',
   ],
   'git-submodules': {
     enabled: true
   },
   packageRules: [
     {
-<<<<<<< before updating
-      "matchPackagePatterns": ["/ci-pre-commit$"],
-      "extends": [
-        ":semanticCommitScopeDisabled",
-        ":semanticPrefixFix",
+      extends: [
+        ':semanticCommitScopeDisabled',
+        ':semanticPrefixFix',
       ],
-      "automerge": true,
+      automerge: true,
+      matchPackagePatterns: [
+        '/ci-pre-commit$',
+      ],
     },
     {
-      "matchManagers": ["git-submodules"],
-      "automerge": true,
-=======
+      automerge: true,
       matchManagers: [
         'git-submodules',
       ],
-      automerge: true,
->>>>>>> after updating
     },
   ],
 }
