@@ -2,17 +2,23 @@
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   enabledManagers: [
     'copier',
+<<<<<<< before updating
     'dockerfile',
     'git-submodules',
   ],
   extends: [
     'config:recommended',
     'docker:pinDigests',
+=======
   ],
-  'git-submodules': {
-    enabled: true,
-  },
+  extends: [
+    'github>techneg-it/.github',
+    'github>techneg-it/.github:copier',
+  ],
+>>>>>>> after updating
+  ],
   packageRules: [
+<<<<<<< before updating
     {
       extends: [
         ':semanticCommitScopeDisabled',
@@ -29,5 +35,7 @@
         'git-submodules',
       ],
     },
+=======
+>>>>>>> after updating
   ],
 }
