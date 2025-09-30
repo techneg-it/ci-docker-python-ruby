@@ -1,33 +1,42 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
-  enabledManagers: [
-    'copier',
-    'dockerfile',
-    'git-submodules',
-  ],
   extends: [
-    'config:recommended',
-    'docker:pinDigests',
+    'github>techneg-it/.github',
+    'github>techneg-it/.github:check-jsonschema',
+    'github>techneg-it/.github:copier-new',
+    'github>techneg-it/.github:github-actions',
+    'github>techneg-it/.github:pre-commit',
+    'github>techneg-it/.github:python-versions',
+    'github>techneg-it/.github:weekly',
+    ':automergeStableNonMajor',
   ],
-  'git-submodules': {
-    enabled: true,
+  customDatasources: {
+    omnitruck: {
+      defaultRegistryUrlTemplate: 'https://omnitruck.chef.io/stable/{{packageName}}/versions/latest',
+      transformTemplates: [
+        '{"releases": [{ "version": $string($) }] }',
+      ],
+    },
   },
   packageRules: [
     {
-      extends: [
-        ':semanticCommitScopeDisabled',
-        ':semanticPrefixFix',
-      ],
-      automerge: true,
       matchPackageNames: [
         '/\\/ci-pre-commit$/',
       ],
+      extends: [
+        ':automergeAll',
+        ':semanticCommitScopeDisabled',
+        ':semanticPrefixFix',
+      ],
+      schedule: [
+        "* * * * *",
+      ],
     },
     {
-      automerge: true,
-      matchManagers: [
-        'git-submodules',
+      matchPackageNames: [
+        'AleksaC/hadolint-py',
       ],
+      versioning: 'loose',
     },
   ],
 }
