@@ -1,15 +1,5 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
-<<<<<<< before updating
-  enabledManagers: [
-    'copier',
-    'dockerfile',
-    'git-submodules',
-  ],
-  extends: [
-    'config:recommended',
-    'docker:pinDigests',
-=======
   extends: [
     'github>techneg-it/.github',
     'github>techneg-it/.github:check-jsonschema',
@@ -19,7 +9,6 @@
     'github>techneg-it/.github:python-versions',
     'github>techneg-it/.github:weekly',
     ':automergeStableNonMajor',
->>>>>>> after updating
   ],
   customDatasources: {
     omnitruck: {
@@ -31,27 +20,23 @@
   },
   packageRules: [
     {
-<<<<<<< before updating
-      extends: [
-        ':semanticCommitScopeDisabled',
-        ':semanticPrefixFix',
-      ],
-      automerge: true,
       matchPackageNames: [
         '/\\/ci-pre-commit$/',
       ],
+      extends: [
+        ':automergeAll',
+        ':semanticCommitScopeDisabled',
+        ':semanticPrefixFix',
+      ],
+      schedule: [
+        "* * * * *",
+      ],
     },
     {
-      automerge: true,
-      matchManagers: [
-        'git-submodules',
-      ],
-=======
       matchPackageNames: [
         'AleksaC/hadolint-py',
       ],
       versioning: 'loose',
->>>>>>> after updating
     },
   ],
 }
