@@ -3,7 +3,17 @@ driver:
   name: docker
 
 provisioner:
-  name: dummy
+  name: shell
+  command: |
+    cat > /tmp/test_yaml.c << 'EOF'
+    #include <stdio.h>
+    #include <yaml.h>
+
+    int main() {
+        printf("libyaml version: %s\n", yaml_get_version_string());
+        return 0;
+    }
+    EOF
 
 verifier:
   name: inspec
