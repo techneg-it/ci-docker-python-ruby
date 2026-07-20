@@ -21,7 +21,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-FROM techneg/ci-pre-commit:v2.5.50@sha256:ee83e831fcd5917ef2877eacfb6618a786fa258a597cabb6f1be55af048c96bb
+FROM techneg/ci-pre-commit:v2.5.51@sha256:80bb3816f84f652f1ca876c1390fe786a5bd698b3d1b493166e4fb704ba6da58
 
 # add more arguments from CI to the image so that `$ env` should reveal more info
 ARG CI_BUILD_ID
